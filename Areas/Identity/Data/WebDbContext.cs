@@ -10,6 +10,7 @@ public class WebDbContext : IdentityDbContext<WebAppUser>
     public WebDbContext(DbContextOptions<WebDbContext> options)
         : base(options)
     {
+
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
