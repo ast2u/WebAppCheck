@@ -4,6 +4,14 @@
 @inject SignInManager<WebAppUser> SignInManager
 @inject UserManager<WebAppUser> UserManager
 
+@{
+    // Get the current page
+    var currentPage = ViewContext.ActionDescriptor.DisplayName;
+    // Check if the current page is not login or register
+    var isNotLoginOrRegisterPage = !currentPage.Contains("/Account/Login") && !currentPage.Contains("/Account/Register");
+}
+
+
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
@@ -16,7 +24,7 @@
         </form>
     </li>
 }
-else
+else if (isNotLoginOrRegisterPage)
 {
     <li class="nav-item">
         <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
