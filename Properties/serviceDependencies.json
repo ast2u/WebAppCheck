@@ -10,7 +10,7 @@
     },
     "mssql2": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:Basedatacarlo"
+      "connectionId": "ConnectionStrings:Basecarlodata"
     }
   }
 }

@@ -13,8 +13,9 @@
     "mssql2": {
       "serviceConnectorResourceId": "",
       "secretStore": "AzureKeyVault",
+      "resourceId": null,
       "type": "mssql.onprem",
-      "connectionId": "ConnectionStrings:Basedatacarlo"
+      "connectionId": "ConnectionStrings:Basecarlodata"
     }
   }
 }
