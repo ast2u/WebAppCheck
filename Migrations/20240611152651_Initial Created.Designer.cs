@@ -12,8 +12,8 @@ using WebAppCheck.Data;
 namespace WebAppCheck.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    [Migration("20240610143101_initial Create")]
-    partial class Initialcreate
+    [Migration("20240611152651_Initial Created")]
+    partial class InitialCreated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

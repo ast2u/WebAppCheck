@@ -7,7 +7,7 @@ using Azure.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 var keyVaultEndpoint = new Uri("https://keyvaultcarlo.vault.azure.net/");
-builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new VisualStudioCredential());
+builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 var connectionString = builder.Configuration.GetConnectionString("Basecarlodata") ?? throw new InvalidOperationException("Connection string 'WebappDB' not found.");
 
 builder.Services.AddDbContext<WebDbContext>(options => options.UseSqlServer(connectionString));
