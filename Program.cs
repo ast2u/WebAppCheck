@@ -2,9 +2,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebAppCheck.Areas.Identity.Data;
 using WebAppCheck.Data;
+using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("WebDbContextConnection") ?? throw new InvalidOperationException("Connection string 'WebDbContextConnection' not found.");
+
+var keyVaultEndpoint = new Uri("https://keyvaultcarlo.vault.azure.net/");
+builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
+var connectionString = builder.Configuration.GetConnectionString("Basecarlodata") ?? throw new InvalidOperationException("Connection string 'WebappDB' not found.");
 
 builder.Services.AddDbContext<WebDbContext>(options => options.UseSqlServer(connectionString));
 

@@ -3,6 +3,19 @@
     "mssql1": {
       "type": "mssql.local",
       "connectionId": "ConnectionStrings:WebDbContextConnection"
+    },
+    "secrets1": {
+      "secretStore": null,
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/keyvaultcarlo",
+      "type": "secrets.keyVault",
+      "connectionId": "stringVaultUri"
+    },
+    "mssql2": {
+      "serviceConnectorResourceId": "",
+      "secretStore": "AzureKeyVault",
+      "resourceId": null,
+      "type": "mssql.onprem",
+      "connectionId": "ConnectionStrings:Basecarlodata"
     }
   }
 }

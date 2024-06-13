@@ -3,6 +3,14 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:WebDbContextConnection"
+    },
+    "secrets1": {
+      "type": "secrets",
+      "connectionId": "stringVaultUri"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:Basecarlodata"
     }
   }
 }
