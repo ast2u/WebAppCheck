@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebAppCheck.Areas.Identity.Data;
+using WebAppCheck.Models;
 
 namespace WebAppCheck.Data;
 
@@ -12,7 +13,7 @@ public class WebDbContext : IdentityDbContext<WebAppUser>
     {
 
     }
-
+    public DbSet<Post> Posts { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
