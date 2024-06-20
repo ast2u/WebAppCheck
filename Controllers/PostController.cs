@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using WebAppCheck.Models;
 
 namespace WebAppCheck.Controllers
 {
+    [Authorize]
     public class PostController : Controller
     {
         private readonly WebDbContext _context;
@@ -45,22 +48,24 @@ namespace WebAppCheck.Controllers
             return View(post);
         }
 
-        // GET: Post/Create
-        public IActionResult CreateOrEdit()
+        // GET: Post/CreateOrEdit
+        public IActionResult CreateOrEdit(int? id)
         {
             ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
-        // POST: Post/Create
+        // POST: Post/CreateOrEdit
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostId,PostTitle,PostContent,CreatedDate,UserID")] Post post)
+        public async Task<IActionResult> CreateOrEdit([Bind("PostId,PostTitle,PostContent,CreatedDate,UserID")] Post post)
         {
             if (ModelState.IsValid)
             {
+               
+                post.CreatedDate = DateTime.Now;
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

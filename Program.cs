@@ -14,12 +14,14 @@ var LocalconnectionString = builder.Configuration.GetConnectionString("WebDbCont
 
 //builder.Services.AddDbContext<WebDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDbContext<WebDbContext>(options => options.UseSqlServer(LocalconnectionString));
+builder.Services.AddDbContext<WebDbContext>(options => options.UseSqlServer(LocalconnectionString).EnableSensitiveDataLogging().LogTo(Console.WriteLine, LogLevel.Information));
 
 builder.Services.AddDefaultIdentity<WebAppUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<WebDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
 
 builder.Services.AddRazorPages();
 
@@ -47,7 +49,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Post}/{action=Index}/{id?}");
 
 app.MapRazorPages();
 
