@@ -4,11 +4,14 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebAppCheck.Areas.Identity.Data;
 using WebAppCheck.Data;
 using WebAppCheck.Models;
+
 
 namespace WebAppCheck.Controllers
 {
@@ -16,17 +19,19 @@ namespace WebAppCheck.Controllers
     public class PostController : Controller
     {
         private readonly WebDbContext _context;
+        private readonly UserManager<WebAppUser> _userManager;
 
-        public PostController(WebDbContext context)
+        public PostController(WebDbContext context, UserManager<WebAppUser> userManager)
         {
             _context = context;
+            this._userManager = userManager;
         }
 
         // GET: Post
         public async Task<IActionResult> Index()
         {
-            var webDbContext = _context.Posts.Include(p => p.User);
-            return View(await webDbContext.ToListAsync());
+            //var webDbContext = _context.Posts.Include(p => p.User);
+            return View(await _context.Posts.ToListAsync());
         }
 
         // GET: Post/Details/5
@@ -49,10 +54,9 @@ namespace WebAppCheck.Controllers
         }
 
         // GET: Post/CreateOrEdit
-        public IActionResult CreateOrEdit(int? id)
+        public IActionResult CreateOrEdit()
         {
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
+            return View(new Post());
         }
 
         // POST: Post/CreateOrEdit
@@ -60,17 +64,18 @@ namespace WebAppCheck.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateOrEdit([Bind("PostId,PostTitle,PostContent,CreatedDate,UserID")] Post post)
+        public async Task<IActionResult>CreateOrEdit([Bind("PostId,PostTitle,PostContent,CreatedDate,UserID")] Post post)
         {
+            Console.WriteLine($"User: {_userManager.GetUserId(this.User)}");
             if (ModelState.IsValid)
             {
-               
+                post.UserID = _userManager.GetUserId(this.User);
+                
                 post.CreatedDate = DateTime.Now;
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id", post.UserID);
             return View(post);
         }
 

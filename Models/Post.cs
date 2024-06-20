@@ -25,7 +25,7 @@ namespace WebAppCheck.Models
         public DateTime CreatedDate { get; set; }
         //public List<Comment> Comments { get; set; }
 
-
+        [Required]
         public string UserID { get; set; }
         public WebAppUser User { get; set; }
     }

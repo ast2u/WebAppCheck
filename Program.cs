@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using WebAppCheck.Areas.Identity.Data;
 using WebAppCheck.Data;
 using Azure.Identity;
+using WebAppCheck.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
