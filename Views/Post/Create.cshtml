@@ -1,0 +1,43 @@
+﻿@model WebAppCheck.Models.Posts
+
+@{
+    ViewData["Title"] = "Create Post";
+}
+
+
+<div class="row">
+    <div class="col-md-6 offset-md-4">
+        <h4>Posts</h4>
+        <hr />
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating pb-3">
+                <input asp-for="PostTitle" class="form-control" id="titlePost" placeholder="Title" />
+                <label asp-for="PostTitle" for="titlePost" class="control-label">Title of the Post</label>
+                <span asp-validation-for="PostTitle" class="text-danger"></span>
+            </div>
+            <div class="form-floating pb-4">
+                <textarea asp-for="PostContent" placeholder="Post something here" id="contentTextarea" style="height: 100px" class="form-control"></textarea>
+                <label asp-for="PostContent" class="control-label" for="contentTextarea">What's on your mind?</label>
+                <span asp-validation-for="PostContent" class="text-danger"></span>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="submit" value="Create Post" class="btn btn-primary w-100" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

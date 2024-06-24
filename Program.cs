@@ -8,11 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 var keyVaultEndpoint = new Uri("https://keyvaultcarlo.vault.azure.net/");
 builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
-var connectionString = builder.Configuration.GetConnectionString("Basecarlodata") ?? throw new InvalidOperationException("Connection string 'WebappDB' not found.");
+//var connectionString = builder.Configuration.GetConnectionString("Basecarlodata") ?? throw new InvalidOperationException("Connection string 'WebappDB' not found.");
 
-//var LocalconnectionString = builder.Configuration.GetConnectionString("WebDbContextConnection") ?? throw new InvalidOperationException("Connection string 'WebappDB' not found.");
+var LocalconnectionString = builder.Configuration.GetConnectionString("WebDbContextConnection") ?? throw new InvalidOperationException("Connection string 'WebappDB' not found.");
 
-builder.Services.AddDbContext<WebDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<WebDbContext>(options => options.UseSqlServer(LocalconnectionString));
 
 builder.Services.AddDefaultIdentity<WebAppUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<WebDbContext>();
 
@@ -45,7 +45,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Post}/{action=Index}/{id?}");
 
 app.MapRazorPages();
 
