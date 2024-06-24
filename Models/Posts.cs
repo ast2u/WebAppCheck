@@ -21,6 +21,7 @@ namespace WebAppCheck.Models
         [MaxLength(300, ErrorMessage = "Maximum 300 characters only.")]
         public string PostContent { get; set; }
 
+        [DisplayFormat(DataFormatString ="{0:MM/dd/yyyy}")]
         public DateTime CreatedDate { get; set; }
 
 

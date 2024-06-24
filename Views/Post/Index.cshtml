@@ -3,45 +3,79 @@
 @{
     ViewData["Title"] = "Index";
 }
+<h1>Posts</h1>
+<div class="container mt-4">
+    
+        @foreach (var item in Model)
+        {
+            <div class="card mb-3">
+                <div class="card-header text-white bg-success pb-4">
 
-<h1>Index</h1>
+                    <h4 class="card-title pt-3">@Html.DisplayFor(modelItem => item.PostTitle)</h4>
+                
+                </div>
+            
+                <div class="card-body">
+                <p class="">@Html.DisplayFor(modelItem => item.PostContent)
+                </p>
+                 </div>
+            </div>
+            
+            
+        }
+        
+    
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PostTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostContent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostContent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PostId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostTitle)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostContent)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedDate)
+                    </th>
+                    <th>
+                        <a asp-action="CreateOrEdit" class="btn btn-sm btn-success"><i class="fa-solid fa-plus"></i> New Post</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostContent)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+
+                            <form asp-action="Delete" asp-route-id="@item.PostId">
+                                <div class="btn-group btn-group-sm">
+                                    <a asp-action="CreateOrEdit" asp-route-id="@item.PostId" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete this Post?')">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </form>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
